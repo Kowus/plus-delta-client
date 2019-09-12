@@ -10,7 +10,13 @@
     </button>
 
     <div class="row">
-      <StickyNote v-for="note in getReviews" :note="note" :bind="note" :key="note._id" />
+      <StickyNote
+        v-for="note in getReviews"
+        :note="note"
+        :bind="note"
+        :key="note._id"
+      />
+      {{getCurEdit}}
     </div>
   </div>
 </template>
@@ -27,7 +33,7 @@ export default {
     StickyNote
   },
   computed: {
-    ...mapGetters(["getBlurred", "getReviews"])
+    ...mapGetters(["getBlurred", "getReviews", "getCurEdit"])
   },
   data() {
     return {
@@ -45,7 +51,8 @@ export default {
             "A bad review is the result of a problem. The real problem is whatever happened between your customer and your businesses that created that result ",
           date: "2019-09-09T07:50:51.157Z",
           class: "delta",
-          blurred: false
+          blurred: false,
+          _id: new Date().toString()
         }
       });
     }

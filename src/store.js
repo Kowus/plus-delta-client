@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     blurred: '',
     reviews: [],
+    cur_editing: ''
   },
   getters: {
     getBlurred(state) {
@@ -15,10 +16,16 @@ export default new Vuex.Store({
     getReviews(state) {
       return state.reviews;
     },
+    getCurEdit(state) {
+      return state.cur_editing;
+    }
   },
   mutations: {
     setBlurred(state, id) {
       state.blurred = id;
+    },
+    setCurEdit(state, id) {
+      state.cur_editing = id;
     },
     setReviews(state, { reviews, updateOperator, index }) {
       // state.reviews = reviews;
@@ -33,6 +40,9 @@ export default new Vuex.Store({
     },
     setReviews({ commit }, payload) {
       commit('setReviews', payload);
+    },
+    setCurEdit({ commit }, id) {
+      commit('setCurEdit', id);
     },
   },
 });

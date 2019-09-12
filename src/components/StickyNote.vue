@@ -1,9 +1,18 @@
 <template>
   <div class="card note" :class="`border-${note.class === 'plus'?'warning':'danger'}`">
     <div class="card-body">
-      <h5 class="card-title">{{note.title}}</h5>
+      <h5 class="card-title">
+        {{note.title}}
+        <small class="note-editor">
+          <i class="fas fa-edit" @click="setCurEdit(note._id)"></i>
+        </small>
+      </h5>
       <img src="/img/tack.png" class="tack" />
-      <p class="card-text" contenteditable @blur="sBlur({id:note._id})">{{note.message}}</p>
+      <p
+        class="card-text"
+        :contenteditable="getCurEdit === note._id"
+        @blur="sBlur({id:note._id})"
+      >{{note.message}}</p>
       <div class="preloader" v-if="note.blurred">
         <div class="spinner">
           <i class="fas fa-spinner"></i>
@@ -22,17 +31,18 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "StickyNote",
   props: {
-    note: {}
+    note: {},
+    editing: ""
   },
 
   computed: {
-    ...mapGetters(["getBlurred"])
+    ...mapGetters(["getBlurred", "getCurEdit"])
   },
   methods: {
     revDate(dateString) {
       return moment(dateString).fromNow();
     },
-    ...mapActions(["setBlurred"]),
+    ...mapActions(["setBlurred", "setCurEdit"]),
     sBlur(id) {
       this.setBlurred(id);
       this.note.blurred = true;
@@ -61,6 +71,14 @@ export default {
   }
   .card-text {
     // color: bla;
+  }
+  .note-editor {
+    cursor: pointer;
+    font-size: 14px;
+    float: right;
+    :hover {
+      opacity: 0.4;
+    }
   }
 }
 
