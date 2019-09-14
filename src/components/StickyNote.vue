@@ -45,8 +45,8 @@
       <p class="text-right">
         <small class="text-muted">-- {{revDate(note.date)}}</small>
       </p>
-      <fieldset class="form-group fgs">
-        <div class="form-check" v-if="getCurEdit === note._id">
+      <fieldset class="form-group fgs" v-if="getCurEdit === note._id">
+        <div class="form-check">
           <label class="form-check-label text-warning">
             <input
               type="radio"
@@ -55,7 +55,6 @@
               id="optionsRadios1"
               value="plus"
               v-model="note.class"
-              checked
             />
             Plus
           </label>
