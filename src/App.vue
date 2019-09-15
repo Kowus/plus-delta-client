@@ -16,8 +16,9 @@
   text-align: center;
   color: #2c3e50;
   background-color: #ffd300;
-  height: 100vh;
-  width: 1000vw;
+  min-height: 100vh;
+  width: 100vw;
+  // max-width: 1000vw;
 }
 // #nav {
 //   padding: 30px;

@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     blurred: '',
     reviews: [],
-    cur_editing: ''
+    cur_editing: '',
   },
   getters: {
     getBlurred(state) {
@@ -18,7 +18,7 @@ export default new Vuex.Store({
     },
     getCurEdit(state) {
       return state.cur_editing;
-    }
+    },
   },
   mutations: {
     setBlurred(state, id) {

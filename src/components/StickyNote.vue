@@ -31,7 +31,6 @@
         class="form-control"
         id="exampleTextarea"
         rows="5"
-        style="margin-top: 0px; margin-bottom: 0px;"
         v-model="note.message"
         v-if="getCurEdit === note._id"
       ></textarea>
