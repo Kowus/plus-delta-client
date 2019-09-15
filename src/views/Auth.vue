@@ -30,5 +30,6 @@ export default {
 .auth {
   text-align: center;
   padding: 10%;
+  margin: 0;
 }
 </style>
