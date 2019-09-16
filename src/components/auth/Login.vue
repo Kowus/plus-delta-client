@@ -33,26 +33,34 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "Login",
+  created() {
+    const { redirect } = this.$route.query;
+    if (this.$route.query.redirect) this.withQuery = redirect;
+  },
   data() {
     return {
       user: {
         username: "",
         password: ""
-      }
+      },
+      withQuery: ""
     };
   },
   methods: {
     login() {
-      this.$http
-        .post("/login", this.user)
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          // send an alert
-        });
+      this.$http.post("/login", this.user).then(res => {
+        this.$auth.setToken(
+          res.data.token,
+          moment().add(6, "h"),
+          res.data.user
+        );
+        if (this.$route.query.redirect)
+          return this.$router.push(this.$route.query.redirect);
+        return this.$router.push("/");
+      });
     }
   }
 };

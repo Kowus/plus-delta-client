@@ -8,6 +8,7 @@ export default new Vuex.Store({
     blurred: '',
     reviews: [],
     cur_editing: '',
+    sessionUser: {},
   },
   getters: {
     getBlurred(state) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     getCurEdit(state) {
       return state.cur_editing;
+    },
+    getSessionUser(state) {
+      return state.getSessionUser;
     },
   },
   mutations: {
@@ -33,6 +37,12 @@ export default new Vuex.Store({
       else if (updateOperator === 'unshift') state.reviews.unshift(reviews);
       else if (updateOperator === 'remove') state.reviews.splice(index, 1);
     },
+    setSessionUser(state, user) {
+      state.sessionUser = user;
+    },
+    clearSessionUser(state) {
+      state.sessionUser = {};
+    },
   },
   actions: {
     setBlurred({ commit }, { id }) {
@@ -43,6 +53,17 @@ export default new Vuex.Store({
     },
     setCurEdit({ commit }, id) {
       commit('setCurEdit', id);
+    },
+    setSessionUser({ commit }, { axios, link }) {
+      axios
+        .get(link)
+        .then((res) => {
+          commit('setSessionUser', res.data);
+        })
+        .catch((res) => {
+          console.error(res);
+          commit('clearSessionUser');
+        });
     },
   },
 });

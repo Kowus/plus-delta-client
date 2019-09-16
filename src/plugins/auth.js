@@ -5,7 +5,7 @@ const AuthPlugin = {
   setToken(token, expiration, user) {
     localStorage.setItem('authToken', token);
     localStorage.setItem('authTokenExpiration', expiration);
-    localStorage.setItem('userId', user.username);
+    localStorage.setItem('userId', user);
   },
   getToken() {
     const token = localStorage.getItem('authToken');
