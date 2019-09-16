@@ -20,12 +20,12 @@ httpClient.interceptors.request.use(
 httpClient.interceptors.response.use(
   response => response,
   (error) => {
-    Vue.prototype.$message({
-      showClose: true,
-      message: error.response.data.message,
-      type: 'error',
-    });
-    return Promise.reject(error.reponse);
+    // Vue.prototype.$message({
+    //   showClose: true,
+    //   message: error.response.data.message,
+    //   type: 'error',
+    // });
+    return Promise.reject(error.response);
   },
 );
 Vue.config.productionTip = false;

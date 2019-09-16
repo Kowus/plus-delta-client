@@ -1,6 +1,12 @@
 <template>
   <form class="text-left">
     <div class="form-group">
+      <div class="alert alert-dismissible alert-danger" v-if=" login_errors.message">
+        <button type="button" class="close" data-dismiss="alert" @click="login_errors={}">&times;</button>
+        <strong>Oh snap!</strong>
+        <!-- <a href="#" class="alert-link">Change a few things up</a> and try submitting again. -->
+        {{login_errors.message}}
+      </div>
       <label for="username">Username or Email</label>
       <input
         class="form-control bg-input"
@@ -46,21 +52,27 @@ export default {
         username: "",
         password: ""
       },
-      withQuery: ""
+      withQuery: "",
+      login_errors: {}
     };
   },
   methods: {
     login() {
-      this.$http.post("/login", this.user).then(res => {
-        this.$auth.setToken(
-          res.data.token,
-          moment().add(6, "h"),
-          res.data.user
-        );
-        if (this.$route.query.redirect)
-          return this.$router.push(this.$route.query.redirect);
-        return this.$router.push("/");
-      });
+      this.$http
+        .post("/login", this.user)
+        .then(res => {
+          this.$auth.setToken(
+            res.data.token,
+            moment().add(6, "h"),
+            res.data.user
+          );
+          if (this.$route.query.redirect)
+            return this.$router.push(this.$route.query.redirect);
+          return this.$router.push("/");
+        })
+        .catch(err => {
+          this.login_errors = err.data;
+        });
     }
   }
 };

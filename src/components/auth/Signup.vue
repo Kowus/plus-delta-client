@@ -28,7 +28,7 @@
         v-model="user.cpassword"
       />
     </div>
-    <button type="button" class="btn btn-primary">
+    <button type="button" class="btn btn-primary" @click.prevent="submit">
       <i class="fas fa-paper-plane"></i> Submit
     </button>
     <p class="text-center">
@@ -51,6 +51,21 @@ export default {
       }
       // pass is-valid class to form on validation
     };
+  },
+  methods: {
+    submit() {
+      this.$http
+        .post("/signup", this.user)
+        .then(res => {
+          this.$auth.setToken(res.data.token, moment().add(6, "h"));
+          if (this.$route.query.redirect)
+            return this.$router.push(this.$route.query.redirect);
+          return this.$router.push("/");
+        })
+        .catch(err => {
+          console.error("Error Occurred");
+        });
+    }
   }
 };
 </script>

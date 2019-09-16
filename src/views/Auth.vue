@@ -4,7 +4,9 @@
       <h1 class="display-3">Delta, Plus!</h1>
       <p class="lead">Simple, Anonymous Reviews</p>
       <hr class="my-4" />
-      <router-view />
+      <transition name="fade">
+        <router-view />
+      </transition>
       <!-- <p>Welcome</p> -->
       <!-- <p class="lead">
         <a class="btn btn-primary btn-lg" href="#" role="button">
@@ -21,6 +23,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-active {
+  transition: opacity 1.5s;
+}
+.fade-leave-active {
+  opacity: 0;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 .jumbotron {
   color: #000;
   background-color: #fff;
