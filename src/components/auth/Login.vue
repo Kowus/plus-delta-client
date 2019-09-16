@@ -2,18 +2,29 @@
   <form class="text-left">
     <div class="form-group">
       <label for="username">Username or Email</label>
-      <input class="form-control bg-input" id="username" placeholder="Username or Email" />
+      <input
+        class="form-control bg-input"
+        id="username"
+        placeholder="Username or Email"
+        autofocus
+        v-model="user.username"
+        autocomplete="username"
+      />
       <label for="exampleInputPassword1">Password</label>
       <input
         type="password"
         class="form-control bg-input"
         id="exampleInputPassword1"
         placeholder="Password"
+        v-model="user.password"
+        autocomplete="new-password"
       />
     </div>
-    <button type="button" class="btn btn-primary">
-      <i class="fas fa-paper-plane"></i> Submit
-    </button>
+    <fieldset class="text-right">
+      <button type="button" class="btn btn-primary" @click.prevent="login">
+        <i class="fas fa-paper-plane"></i> Submit
+      </button>
+    </fieldset>
     <p class="text-center">
       Not a member?
       <router-link to="/auth/register">Register</router-link>
@@ -31,6 +42,18 @@ export default {
         password: ""
       }
     };
+  },
+  methods: {
+    login() {
+      this.$http
+        .post("/login", this.user)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          // send an alert
+        });
+    }
   }
 };
 </script>

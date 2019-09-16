@@ -12,6 +12,10 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+      meta: {
+        auth: true,
+        title: 'Plus, Delta: Dashboard',
+      },
     },
     {
       path: '/about',
@@ -25,13 +29,16 @@ export default new Router({
       path: '/auth',
       name: 'auth',
       component: () => import('./views/Auth.vue'),
+      redirect: '/auth/register',
       children: [
         {
           path: 'login',
           name: 'login',
           component: () => import('./components/auth/Login.vue'),
           meta: {
-            default: true,
+            default: false,
+            guest: true,
+            title: 'Login',
           },
         },
         {
@@ -40,6 +47,8 @@ export default new Router({
           component: () => import('./components/auth/Signup.vue'),
           meta: {
             default: true,
+            guest: true,
+            title: 'Register',
           },
         },
       ],
